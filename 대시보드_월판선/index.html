@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1920,height=1080">
+    <title>스마트 터널 모니터링</title>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/circle-progress.js"></script>
+    <script src="js/waypoints.min.js"></script>
+    <script src="js/jquery.counterup.js"></script>
+    <script src="js/script.js"></script>
+</head>
+
+<body>
+    <div class="wrap">
+
+
+        <div class="header">
+            <div class="logo"><strong>Smart</strong> Space.<strong class="title_color">Safety</strong><br><span>스마트안전관리시스템</span></div>
+            <h1>
+                <div style="flex:1;"><strong>월곶 - 판교 복선 전철</strong>(제1공구)</div>
+            </h1>
+            <div class="time"><span id="current-date">2023.03.03  |</span> <strong id="current-time">00:00:00</strong></div>
+            <div class="sound" onclick="soundSwitch();"></div>
+        </div>
+
+
+        <table>
+            <thead>
+                <tr>
+                    <td>구간</td>
+                    <td>
+                        <ul class="description">
+                            <li>굴진현황</li>
+                            <li>누계(m)</li>
+                            <li>총연장(m)</li>
+                            <li>진행율(%)</li>
+                        </ul>
+                    <td>공종현황</td>
+                    <td>
+                        <ul class="description">
+                            <li>출역현황</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div class="legend"><i></i>정상 <i></i>경고</div>
+                        환경현황
+                        <ul class="env">
+                            <li><i class="icon_o2"></i>산소농도 <span>%</span></li>
+                            <li><i class="icon_co"></i>일산화탄소 <span>ppm</span></li>
+                            <li><i class="icon_gas"></i>가연성가스 <span>%LEL</span></li>
+                            <li><i class="icon_h2s"></i>황화수소 <span>ppm</span></li>
+                        </ul>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><i class="lane_num lane1">1</i>구간</td>
+                    <td>
+                        <ul id="section1" class="section rate description">
+                            <li><i class="bar"><span></span></i></li>
+                            <li><div class="score1">0</div></li>
+                            <li><div class="score2">0</div></li>
+                            <li><div class="score">0</div></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div class="current_work">벼럭처리</div>
+                    </td>
+                    <td id="section2" class="section count release">
+                        <i class="worker"><score class="score">0</score></i>
+                        <i class="split"></i>
+                        <i class="truck"><score class="score1">0</score></i>
+                    </td>
+                    <td>
+                        <ul id="section3" class="section count env">
+                            <li><score class="score">0</score></li>
+                            <li class="warning"><score class="score1">0</score></li>
+                            <li><score class="score2">0</score></li>
+                            <li><score class="score3">0</score></li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td><i class="lane_num lane2">2</i>구간</td>
+                    <td>
+                        <ul id="section4" class="section rate description">
+                            <li><i class="bar"><span></span></i></li>
+                            <li><div class="score1">0</div></li>
+                            <li><div class="score2">0</div></li>
+                            <li><div class="score">0</div></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div class="current_work">벼럭처리</div>
+                    </td>
+                    <td id="section5" class="section count release">
+                        <i class="worker"><score class="score">0</score></i>
+                        <i class="split"></i>
+                        <i class="truck"><score class="score1">0</score></i>
+                    </td>
+                    <td>
+                        <ul id="section6" class="section count env">
+                            <li><score class="score">0</score></li>
+                            <li><score class="score1">0</score></li>
+                            <li><score class="score2">0</score></li>
+                            <li><score class="score3">0</score></li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><i class="lane_num lane3">3</i>구간</td>
+                    <td>
+                        <ul id="section7" class="section rate description">
+                            <li><i class="bar"><span></span></i></li>
+                            <li><div class="score1">0</div></li>
+                            <li><div class="score2">0</div></li>
+                            <li><div class="score">0</div></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div class="current_work">벼럭처리</div>
+                    </td>
+                    <td id="section8" class="section count release">
+                        <i class="worker"><score class="score">0</score></i>
+                        <i class="split"></i>
+                        <i class="truck"><score class="score1">0</score></i>
+                    </td>
+                    <td>
+                        <ul id="section9" class="section count env">
+                            <li><score class="score">0</score></li>
+                            <li><score class="score1">0</score></li>
+                            <li><score class="score2">0</score></li>
+                            <li><score class="score3">0</score></li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><i class="lane_num lane4">4</i>구간</td>
+                    <td>
+                        <ul id="section10" class="section rate description">
+                            <li><i class="bar"><span></span></i></li>
+                            <li><div class="score1">0</div></li>
+                            <li><div class="score2">0</div></li>
+                            <li><div class="score">0</div></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div class="current_work">벼럭처리</div>
+                    </td>
+                    <td id="section11" class="section count release">
+                        <i class="worker"><score class="score">0</score></i>
+                        <i class="split"></i>
+                        <i class="truck"><score class="score1">0</score></i>
+                    </td>
+                    <td>
+                        <ul id="section12" class="section count env">
+                            <li><score class="score">0</score></li>
+                            <li><score class="score1">0</score></li>
+                            <li><score class="score2">0</score></li>
+                            <li class="warning"><score class="score3">0</score></li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <div class="content_wrap">
+            <div class="content">
+                <div class="bg_area scroll_bar">
+                <!--<div class="bg_area scroll_bar" id="container">-->
+
+                    <!-- 터널 그래픽 영역 -->
+                    <div class="turnnel_box">
+                    
+                        <!-- textinfo -->
+                        <div class="text_info">
+                            <i class="ti_001">수직구</i>
+                            <i class="ti_002">연결갱</i>
+                            <i class="ti_003">확폭부 시점</i>
+                            <i class="ti_004">월곶1터널 시점</i>
+                            <i class="ti_005">중간계착 시점</i>
+                            <i class="ti_006">월곶2터널 시점</i>
+                        </div>
+                        <!--// textinfo -->
+
+                    <!-- 구간별 미니 팝업1 -->
+                    <ul id="section17" class="section count mini_pop lane1" onclick="openPop();">
+                        <li>
+                            <i class="lane_num lane1">1</i>
+                            <div>
+                                <strong class="score2">0</strong>
+                            </div>
+                        </li>
+                        <li class="release">
+                            <i class="worker"><score class="score3">0</score></i>
+                            <i class="truck"><score class="score4">0</score></i>
+                        </li>
+                    </ul>
+                    <!-- // 구간별 미니 팝업1 -->
+
+                    <!-- 구간별 미니 팝업2 -->
+                    <ul id="section18" class="section count mini_pop lane2" onclick="openPop();">
+                        <li>
+                            <i class="lane_num lane2">2</i>
+                            <div>
+                                <strong class="score2">0</strong>
+                            </div>
+                            
+                            
+                        </li>
+                        <li class="release">
+                            <i class="worker"><score class="score3">0</score></i>
+                            <i class="truck"><score class="score4">0</score></i>
+                        </li>
+                    </ul>
+                    <!-- // 구간별 미니 팝업2 -->
+
+                    <!-- 구간별 미니 팝업3 -->
+                    <ul id="section19" class="section count mini_pop lane3" onclick="openPop();">
+                        <li>
+                            <i class="lane_num lane3">3</i>
+                            <div>
+                                <strong class="score2">0</strong>
+                            </div>
+                        </li>
+                        <li class="release">
+                            <i class="worker"><score class="score3">0</score></i>
+                            <i class="truck"><score class="score4">0</score></i>
+                        </li>
+                    </ul>
+                    <!-- // 구간별 미니 팝업3 -->
+
+                    <!-- 구간별 미니 팝업4 -->
+                    <ul id="section20" class="section count mini_pop lane4" onclick="openPop();">
+                        <li>
+                            <i class="lane_num lane4">4</i>
+                            <div>
+                                <strong class="score2">0</strong>
+                            </div>
+                        </li>
+                        <li class="release">
+                            <i class="worker"><score class="score3">0</score></i>
+                            <i class="truck"><score class="score4">0</score></i>
+                        </li>
+                    </ul>
+                    <!-- // 구간별 미니 팝업4 -->
+
+                        <div class="bg_box"></div>
+
+
+                        
+                        <!-- 터널 베이스 1 -->
+                        <div class="t_wrap base1">
+                            <div>
+                                <label class="h_hall"></label>
+                                <i class="lane1"><span></span></i>
+                                <i class="lane1_l"><span></span></i>
+                                <i class="lane2"><span></span></i>
+                                <i class="lane2_l"><span></span></i>
+                                <i class="lane4"><span></span></i>
+                                <label class="gate gate4"></label>
+                                <label class="gate gate1"></label>
+                                <label class="gate gate2_1"></label>
+                            </div>
+                        </div>
+                        <!--// 터널 베이스 1 -->
+
+
+                        <!-- 터널 베이스 2 -->
+                        <div class="t_wrap base2">
+                            <div>
+                                <label class="w_hall"></label>
+                                <i class="lane2_1"><span></span></i>
+                                <i class="lane3"><span></span></i>
+                                <label class="gate gate3"></label>
+                                <label class="gate gate2"></label>
+                            </div>
+                        </div>
+                        <!--// 터널 베이스 2 -->
+
+                        <!-- 터널 베이스 end -->
+                        <div class="t_wrap base3">
+                            <div>
+                                <i class="lane_end"><span></span></i>
+                            </div>
+                        </div>
+                        <!--// 터널 베이스 end -->
+
+
+                    </div>
+                    <!--// 터널 그래픽 영역 -->
+
+                    <div class="release_pop">
+                        <div class="inner">
+                            
+                                <h3>
+                                    <i class="lane_num lane1">1</i>구간 시점 <span>작업자 및 차량 리스트</span>
+                                </h3>
+                                
+                                <div class="list_wrap scroll_bar">
+                                <table>
+                                    <tr>
+                                        <th rowspan="2">
+                                            <div class="release">
+                                                <i class="worker">4</i>
+                                                <span>현장작업자</span>
+                                            </div>
+                                        </th>
+                                        <td>
+                                            <table class="t_list">
+                                                <tr>
+                                                    <th>구분</th>
+                                                    <th>협력업체</th>
+                                                    <th>직종</th>
+                                                    <th>성명</th>
+                                                    <th>출입 시간</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>시공사</td>
+                                                    <td>oo산업</td>
+                                                    <td>굴진공</td>
+                                                    <td>홍길동</td>
+                                                    <td>13:57:02</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>협력사</td>
+                                                    <td>oo건설</td>
+                                                    <td>굴진공</td>
+                                                    <td>고주몽</td>
+                                                    <td>13:57:02</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>발주처</td>
+                                                    <td>oo산업</td>
+                                                    <td>굴진공</td>
+                                                    <td>홍길동</td>
+                                                    <td>13:57:02</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>발주처</td>
+                                                    <td>oo산업</td>
+                                                    <td>굴진공</td>
+                                                    <td>홍길동</td>
+                                                    <td>13:57:02</td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table>
+                                    <tr>
+                                        <th rowspan="2">
+                                            <div class="release">
+                                                <i class="truck">4</i>
+                                                <span>현장 중장비</span>
+                                            </div>
+                                        </th>
+                                        <td>
+                                            <table class="t_list">
+                                                <tr>
+                                                    <th>구간명</th>
+                                                    <th>협력업체</th>
+                                                    <th>차종</th>
+                                                    <th>차량번호</th>
+                                                    <th>입차 시간</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>발주처</td>
+                                                    <td>oo산업</td>
+                                                    <td>트럭1</td>
+                                                    <td>3121</td>
+                                                    <td>13:57:02</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>시공사</td>
+                                                    <td>oo건설</td>
+                                                    <td>트럭2</td>
+                                                    <td>1214</td>
+                                                    <td>13:57:02</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>협력사</td>
+                                                    <td>oo건설</td>
+                                                    <td>포크레인1</td>
+                                                    <td>1341</td>
+                                                    <td>13:57:02</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>기타</td>
+                                                    <td>oo건설</td>
+                                                    <td>포크레인2</td>
+                                                    <td>5332</td>
+                                                    <td>13:57:02</td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <button onclick="openPop()">닫기</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="left_pannel">
+                    <h3>터널 진행 상황도</h3>
+
+                    <div class="inner_box">
+
+                            <div id="section13" class="section count inner_2">
+                                <div class="release">
+                                    <i class="worker">현장 작업자</i>
+                                    <div><span class="score">0</span>명</div>
+                                </div>
+                                <table>
+                                    <tr>
+                                        <th rowspan="2"><i class="lane_num lane1">1</i></th>
+                                        <td>작업자 <span><strong class="score1">0</strong>명</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>중장비 <span><strong class="score2">0</strong>대</span></td>
+                                    </tr>
+                                    <tr>
+                                        <th rowspan="2"><i class="lane_num lane2">2</i></th>
+                                        <td>작업자 <span><strong class="score3">0</strong>명</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>중장비 <span><strong class="score4">0</strong>대</span></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div id="section14" class="section count inner_2">
+                                <div class="release truck">
+                                    <i class="truck">현장 중장비</i>
+                                    <div><span class="score">0</span>대</div>
+                                </div>
+                                <table>
+                                    <tr>
+                                        <th rowspan="2"><i class="lane_num lane3">3</i></th>
+                                        <td>작업자 <span><strong class="score1">0</strong>명</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>중장비 <span><strong class="score2">0</strong>대</span></td>
+                                    </tr>
+                                    <tr>
+                                        <th rowspan="2"><i class="lane_num lane4">4</i></th>
+                                        <td>작업자 <span><strong class="score3">0</strong>명</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>중장비 <span><strong class="score4">0</strong>대</span></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="progress">
+                                <div>
+                                    <h4>전체 굴착 진행율</h4>
+                                    <div id="section15" id="circle1" class="section circle">
+                                        <div class="graph_value">
+                                            <h5>Total</h5>
+                                            <div><strong class="score">00</strong>%</div>
+                                        </div>
+                                        <div class="graph" data-size="160" data-thickness="14" data-fill="{ &quot;gradient&quot;: [&quot;#6F60EC&quot;, &quot;#93BEFF&quot;] }" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="section16" class="section count progress_stat">
+                                    <div>
+                                        <strong class="score">0</strong><span>m</span>
+                                    </div>
+                                    <span><score class="score1">0</score>m</span>
+                                </div>
+                            </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+
+            <div class="cctv">
+                <h3>터널 CCTV
+                    <div>
+                        <button>1 / 2</button>
+                        <button>3 / 4</button>
+                        <button>CCTV 관리</button>
+                    </div>
+                </h3>
+                
+                <div class="video_frame">
+                    <span>CCTV #1</span>
+                    <div class="video dummy1"></div>
+                </div>
+                <div class="video_frame" style="margin-bottom:0px;">
+                    <span>CCTV #2</span>
+                    <div class="video dummy2"></div>
+                </div>
+            </div>
+        </div>
+
+
+        
+
+        <div class="notice_bar">
+            <i>공지사항</i>
+            <span>
+                공지사항 테스트 텍스트 공지사항 테스트 텍스트 공지사항 테스트 텍스트 공지사항 테스트 텍스트 
+            </span>
+            <div>인천 서구 중봉민자터널 6공구 김철환. 2023.03.27</div>
+        </div>
+    </div>
+
+
+
+
+    <div class="alarm_pop">
+        <div class="inner">
+            <div class="title">
+                <i class="alarm_icon"></i> SOS 알람
+            </div>
+            <table class="t_list head">
+                <tr>
+                    <th>터널명</th>
+                    <th>구간명</th>
+                    <th>신호발생위치</th>
+                    <th>작업자</th>
+                    <th>발생일자</th>
+                </tr>
+                <tr>
+                    <td>고막터널</td>
+                    <td>1구간</td>
+                    <td>평택 방향 시점</td>
+                    <td>김진만</td>
+                    <td>2023.06.17 / 12:33:12</td>
+                </tr>
+            </table>
+            
+            <div><button class="confirm" onclick="openAlarm()">확인</button></div>
+        </div>
+    </div>
+
+
+    <html>
+
+
+</body>
+</html>
